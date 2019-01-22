@@ -6,6 +6,7 @@ import TableBodyCell from './TableBodyCell';
 import TableBodyRow from './TableBodyRow';
 import TableSelectCell from './TableSelectCell';
 import { withStyles } from '@material-ui/core/styles';
+import VirtualList from 'react-tiny-virtual-list';
 
 const defaultBodyStyles = {
   root: {},
@@ -38,6 +39,8 @@ class TableBody extends React.Component {
     toggleExpandRow: PropTypes.func,
     /** Extend the style applied to components */
     classes: PropTypes.object,
+    /** Virtualized setting  */
+    virtualization: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -105,8 +108,9 @@ class TableBody extends React.Component {
   };
 
   render() {
-    const { classes, columns, toggleExpandRow, options } = this.props;
+    const { virtualization, classes, columns, toggleExpandRow, options } = this.props;
     const tableRows = this.buildRows();
+    console.log(virtualization)
 
     return (
       <MuiTableBody>

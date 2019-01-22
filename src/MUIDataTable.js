@@ -80,6 +80,7 @@ class MUIDataTable extends React.Component {
       responsive: PropTypes.oneOf(['stacked', 'scroll']),
       filterType: PropTypes.oneOf(['dropdown', 'checkbox', 'multiselect', 'textField']),
       textLabels: PropTypes.object,
+      virtualization: PropTypes.bool,
       pagination: PropTypes.bool,
       expandableRows: PropTypes.bool,
       renderExpandableRow: PropTypes.func,
@@ -188,6 +189,7 @@ class MUIDataTable extends React.Component {
     const defaultOptions = {
       responsive: 'stacked',
       filterType: 'dropdown',
+      virtualization: false,
       pagination: true,
       textLabels,
       expandableRows: false,
@@ -917,6 +919,7 @@ class MUIDataTable extends React.Component {
   render() {
     const { classes, title } = this.props;
     const {
+      virtualization,
       announceText,
       activeColumn,
       data,
@@ -930,6 +933,8 @@ class MUIDataTable extends React.Component {
       searchText,
     } = this.state;
 
+
+    pagination = !virtualization 
     const rowCount = this.options.count || displayData.length;
     const rowsPerPage = this.options.pagination ? this.state.rowsPerPage : displayData.length;
 
@@ -989,6 +994,7 @@ class MUIDataTable extends React.Component {
               options={this.options}
             />
             <TableBody
+              virtualization={virtualization}
               data={displayData}
               count={rowCount}
               columns={columns}
